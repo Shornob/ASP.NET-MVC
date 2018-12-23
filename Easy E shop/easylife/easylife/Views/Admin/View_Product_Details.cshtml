@@ -1,0 +1,176 @@
+﻿@model easylife.Models.AdminViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "Product Detail";
+}
+
+		<div class="main_wrapper">
+			
+			<div class="main-div">
+				
+				<div  style="width:40%;height:600px;background-color:white;float:left">
+					
+					<div class="slider" style="box-shadow:none;">
+						<div style="height:300px;width:40%">
+						
+                            <p> @Html.Raw(String.Format("<img width=\"80%\" height=\"400px\"  src=\"/resources/{0}.jpg\">", Model.ProductId))</p>
+                         
+						</div>
+						
+					</div>
+					<!--<img src="resources/1.jpg" width="80%" height="300px" align="center"/> -->
+				</div>
+				
+
+				<div  style="width:60%;height:600px;background-color:white;float:right">
+					<h4 align="left">@Model.products.ProductName</h4>
+					<br/>
+					<p align="left">Price:<span class="pri">$@Model.products.SellingPrice</span></p>
+					<p align="left">Size:
+                        @Html.RadioButton("Size", "M") M
+                        @Html.RadioButton("Size", "X") X
+                        @Html.RadioButton("Size", "L") L
+                        @Html.ValidationMessageFor(model => model.products.Size, "", new { @class = "text-danger" })
+						
+					</p>
+					
+					
+					<a><i class="fa fa-heart" style="color:red; float:left; font-size:24px;"></i>(5)</a>
+					
+					</br>
+					</br>
+					
+					<div class="w3-bar w3-black">
+						<button class="w3-bar-item w3-button tablink w3-Teal" onclick="Details(event,'Features')">Features</button>
+						<button class="w3-bar-item w3-button tablink" onclick="Details(event,'Sizing')">Sizing</button>
+						<button class="w3-bar-item w3-button tablink" onclick="Details(event,'Reviews')">Reviews</button>
+					</div>
+					
+					<div id="Features" class="w3-container city">
+						<p>@Model.products.Features</p>
+					</div>
+					
+					<div id="Sizing" class="w3-container city" style="display:none">
+						<h4>Size Chart</h4>
+						<table>
+							<tr>
+								<th>Size</th>
+								<th>Small</th>
+								<th>Medium</th>
+								<th>Large</th>
+								
+								<th>XL</th>
+							</tr>
+							
+							<tr>
+								<td>chest</td>
+								<td>30</td>
+								<td>38</td>
+								<td>40</td>
+								<td>42</td>
+							</tr>
+							
+							<tr>
+								<td>Length</td>
+								<td>25</td>
+								<td>26</td>
+								<td>27</td>
+								<td>28</td>
+								
+								
+							</tr>
+						</table>
+					</div>
+					
+					<div id="Reviews" class="w3-container city" style="display:none">
+						<h4>Reviews</h4>
+						<div class="box-footer box-comments">
+									  <div class="box-comment">
+										<!-- User image -->
+										<img class="img-circle img-sm" src="~/resources/u1.jpg" alt="User Image">
+
+										<div class="comment-text">
+											  <span class="username">
+												Maria Gonzales
+												<span class="text-muted pull-right">8:03 PM Today</span>
+											  </span><!-- /.username -->
+										  It is a long established fact that a reader will be distracted
+										  by the readable content of a page when looking at its layout.
+										</div>
+										<!-- /.comment-text -->
+									  </div>
+									  <!-- /.box-comment -->
+									  <div class="box-comment">
+										<!-- User image -->
+										<img class="img-circle img-sm" src="~/resources/u2.jpg" alt="User Image">
+
+										<div class="comment-text">
+											  <span class="username">
+												Nora Havisham
+												<span class="text-muted pull-right">8:03 PM Today</span>
+											  </span><!-- /.username -->
+										  The point of using Lorem Ipsum is that it has a more-or-less
+										  normal distribution of letters, as opposed to using
+										  'Content here, content here', making it look like readable English.
+										</div>
+									<!-- /.comment-text -->
+								  </div>
+
+								  <!-- /.box-comment -->
+								</div>
+								<div class="box-footer">
+             
+				<script>
+				    function Details(evt, Name) {
+				        var i, x, tablinks;
+				        x = document.getElementsByClassName("city");
+				        for (i = 0; i < x.length; i++) {
+				            x[i].style.display = "none";
+				        }
+				        tablinks = document.getElementsByClassName("tablink");
+				        for (i = 0; i < x.length; i++) {
+				            tablinks[i].className = tablinks[i].className.replace(" w3-Teal", "");
+				        }
+				        document.getElementById(Name).style.display = "block";
+				        evt.currentTarget.className += " w3-Teal";
+				    }
+					</script>	
+					</div>	
+					</div>
+				</div>
+	
+			</div>
+	</div>
+
+ <div class="col-md-8" style="padding-bottom:20px;padding-top:20px">
+
+              <div id="piechart">
+          
+            </div>
+
+          
+     </div>
+<script src="~/Styles/loader.js"></script> 
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Like', 132],
+        ['DisLike', 53],
+        ['Viewed', 203],
+        ['Puschased', 153]
+        ]);
+
+
+        var options = { 'title': 'Product Review', 'width': 1000, 'height': 500 };
+
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>

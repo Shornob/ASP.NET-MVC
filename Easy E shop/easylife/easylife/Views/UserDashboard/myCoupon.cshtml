@@ -1,0 +1,54 @@
+@model easylife.Models.UserDashboardViewModel.myCouponViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |My Coupon";
+}
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome")><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id=Model.MemberId })><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a  class="active"><i class="fa fa-dashboard"></i>My Coupon</a></li>
+						
+						</ol>
+					</div>
+					
+					
+					
+					
+					<div class="container-fluid">
+						
+						
+						<table class="table table-striped ">
+							
+							<tbody>
+								<tr>
+									<th>Coupon Code</th>
+									<th>Issue Time</th>
+									<th>Validity</th>
+									<th>Percentage</th>
+									<th>Availability</th>
+									
+									
+									
+								</tr>
+								@foreach (var item in Model.Coupons)
+                                {
+								<tr>
+									<td>@item.CouponId</td>
+									<td>@item.IssueDate</td>
+									<td>@item.DeadlineDate</td>
+									<td>@item.Percentage%</td>
+                                    @if (item.Availability == "0") {<td>Used</td> }
+									@if (item.Availability == "1") {<td>Available</td> }
+									@if (item.Availability == "2") {<td>Expired</td> }
+								</tr>
+                                }
+								
+								
+								
+								
+							</tbody>
+						</table>
+						
+						
+						
+					</div>	

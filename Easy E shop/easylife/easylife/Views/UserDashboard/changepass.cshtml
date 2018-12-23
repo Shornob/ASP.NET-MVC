@@ -1,0 +1,91 @@
+@model easylife.Models.UserDashboardViewModel.myPasswordViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |Change Password";
+}
+
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome")><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id= Model.MemberId})><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a  class="active"><i class="fa fa-dashboard"></i>Change Password</a></li>
+						
+						</ol>
+					</div>
+				
+						
+						
+						
+						
+					<div class="col-md-9 " style="height:700px; padding-left:200px;padding-right:200px;" >	
+						
+						<div class="container-fluid">
+							
+							
+						<table class="table table-striped  ">
+								
+								<tbody >
+								@using (Html.BeginForm("ChangePassword", "UserDashboard", new { mid = Model.MemberId }, FormMethod.Post))
+                                        {	
+									
+									<tr>
+										
+										<td align="center" >
+										<p>Old Password</p>
+										</td>
+										<td >
+											<p><input class="form-control" id="cpass" name="cpass" type="password" value=""/></p>
+										</td>
+                                        @if (@Model.flag==1)
+                                        {
+                                            <td style="color:red">*Wrong Password</td>
+                                        }
+
+										
+									</tr>
+									
+									<tr>
+										
+										<td  align="center" >
+										<p>New Password</p>
+										</td>
+										<td >
+											<p><input class="form-control" id="npass" name="npass"  type="password" value=""/></p>
+										</td>
+
+										
+									</tr>
+									<tr>
+										
+										<td align="center" >
+										<p>Retype New Password</p>
+										</td>
+										<td >
+											<p><input class="form-control" id="rpass" name="rpass"  type="password" value=""/></p>
+										</td>
+
+                                        @if (@Model.flag==2)
+                                        {
+                                            <td style="color:red">*Password doesn't match</td>
+                                        }
+
+										
+									</tr>
+									
+									
+									<tr>
+								
+										<td colspan="2"  >
+											<p><input type="submit" value="Save" class="btn btn-primary" style="margin-left:200px" /></p>
+										</td>
+
+										
+									</tr>
+									
+        }
+								</tbody>
+							</table>
+						
+							
+						
+					</div>	
+					</div>

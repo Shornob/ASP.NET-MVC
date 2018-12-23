@@ -1,0 +1,95 @@
+﻿@model easylife.Models.AdminViewModel.MemberView
+@{
+    ViewBag.Title = "View_Profile_Admin";
+
+}
+<style>
+.w3-animate-bottom{overflow: scroll;
+    overflow-x: hidden;
+	position:relative;animation:animatebottom 0.4s}keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+	
+	::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent; 
+}
+    th {color:black;font-weight:bold;
+    }
+    .button {background-color:lightgray
+    }
+</style>		
+<body class="w3-light-grey w3-animate-bottom ">
+	<div class="invoice" style="width:800px;background-color:whitesmoke" >
+		
+				<div class="invoice-wrapper">
+				
+					<div class="invoice-wrap">
+					
+						<div style="text-align:center;color:black;" class="ba"><h3>Personal Information</h3></div>
+					
+				
+						<div class="desc" style="margin-left:275;">
+						
+						
+							<table class="reg" >
+						
+							<tr>
+							
+								<th>Name:</th>
+								<td><label>@Model.member.Name</label></td>
+							
+							</tr>
+							
+							<tr>
+							
+								<th>Email:</th>
+								<td><label>@Model.member.Email</label></td>
+							
+							</tr>
+							<tr>
+							
+								<th>Gender:</th>
+								<td><label>@Model.member.Gender</label></td>
+							
+							</tr>
+							
+							<tr>
+							
+								<th>Cell:</th>
+								<td><label>@Model.member.PhoneNumber</label></td>
+							
+							</tr>
+							<tr>
+							
+								<th>Position:</th>
+								<td>@Model.member.Type</td>
+							
+							</tr>
+							<tr>
+							
+								<th>Member Since:</th>
+								<td><label>@Model.member.MemberSince</label></td>
+							
+							</tr>
+                             <tr>
+							
+								<th>Last Logged in:</th>
+								<td><label>@Model.member.LastLoggedIn</label></td>
+							
+							</tr>
+							
+							<tr colspan="2">
+							<td><a onclick="location.href='@Url.Action("Edit_Profile_Admin", new { @Model.member.MemberId })'"><button class="button">Edit</button></a>
+                               
+							</tr>
+						
+						
+						</table>
+						
+						</div>
+				
+				   </div>
+			
+				   </div>
+			
+		</div>
+</body>

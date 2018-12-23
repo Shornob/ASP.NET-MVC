@@ -1,0 +1,53 @@
+@model easylife.Models.UserDashboardViewModel.myReportViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |My Reports";
+}
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome")><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id=Model.MemberId }) ><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a  class="active"><i class="fa fa-dashboard"></i>My Reports</a></li>
+						
+						</ol>
+					</div>
+					
+					
+					
+					
+					<div class="container-fluid">
+						
+						
+						<table class="table table-striped ">
+							
+							<tbody>
+								<tr>
+									<th>Report Title</th>
+									<th style="width:200px;">Reporting Time</th>
+									<th>Report Description</th>
+									<th>Status</th>
+									
+									
+									
+									
+								</tr>
+								@foreach (var item in Model.Reports)
+                                {
+								<tr>
+									<td>@item.ReportTitle</td>
+								<td>@item.Date</td>
+									<td>@item.Description</td>
+								<td>@item.SeenStatus</td>
+								
+									
+								</tr>
+                                }
+								
+								
+								
+								
+							</tbody>
+						</table>
+						
+						
+						
+					</div>

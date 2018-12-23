@@ -1,0 +1,177 @@
+@model easylife.Models.InvoiceViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |MyOrders |Invoice";
+}
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome") ><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id=Model.MemberId}) ><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a href=@Url.Action("myOrders", new { id=Model.MemberId})><i class="fa fa-dashboard"></i>My Order</a></li>
+						<li><a class="active"><i class="fa fa-dashboard"></i>Invoices</a></li>
+				
+						
+						</ol>
+					</div>
+						
+						
+						
+						
+						<div class="container-fluid ">
+							
+							
+						<table class="table table-striped ">
+								
+								<tbody>
+									<tr>
+										<table width="800px;" style="margin-left:150px;">
+											<tr>
+												<td >
+													<p style="text-align:left;"><b>Bill from:</b><p>
+													<p style="text-align:left;">Easylife Online shopping<p>
+													<p style="text-align:left;">Dhanmondi<p>
+													<p style="text-align:left;">Dhanmondi, Dhaka-1215<p>
+												</td>
+												<td style="text-align:center;">
+													<h1>Easylife</h1>
+													
+												</td>
+												
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													<p style="text-align:left;"><b>Bill To:</b><p>
+													<p style="text-align:left;">@Model.Name<p>
+                                                        <p style="text-align:left;"><b>Shipping Address:</b><p>
+													<p style="text-align:left;">@Model.Invoice.ShippingAddress<p>
+												</td>
+												<td>
+													<table class="table table-striped ">
+														<tbody>
+															<tr>
+																<td>invoice</td>
+																<td>@Model.Invoice.InvoiceId</td>
+															</tr>
+															<tr>
+																<td>invoice Date</td>
+																<td>@Model.Invoice.Date</td>
+															</tr>
+															<!--<tr>
+																<td>Amount Due</td>
+																<td>$450</td>
+															</tr>-->
+														</tbody>
+													</table>
+													
+												</td>
+												
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr>
+												</td>
+											</tr>
+											
+											<tr>
+												<td colspan="2">
+													<table class="table table-striped ">
+														<tbody>
+															<tr>
+																<th>Item</th>
+                                                                <th>Name</th>
+																<th>Quantity</th>
+																<th>Unit Cost</th>
+															</tr>
+                                                            @{var count=0;}
+                                                            @{var tprice=0.0;}
+                                                            @foreach (var item in Model.Orders)
+                                                            {
+                                                                <tr>
+                                                                <td><a href=@Url.Action("details","UserHome", new { id=item.ProductId})>@Html.Raw(String.Format("<img class=\"img-circle user\" src=\"/resources/{0}.jpg\">",item.ProductId))</a></td>
+																<td>@Model.Products[count].ProductName</td>
+																<td>@item.Quantity</td>
+																<td>&#2547;@Model.Products[count].SellingPrice</td>
+																
+															</tr>
+                                                                tprice += Model.Products[count].SellingPrice;
+                                                                count++;
+                                                            }
+															
+															
+															
+														</tbody>
+													</table>
+													
+												</td>
+												
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<p><b>Note/Memo</b><p>
+													<p>With slipping, 30 days money-back guarantee.
+
+<p>
+												
+												</td>
+												<td>
+													<table class="table table-striped ">
+														<tbody>
+															<tr>
+																<td>Subtotal</td>
+																<td>&#2547;@tprice</td>
+															</tr>
+                                                            @{var tax=50;}
+															<tr>
+																<td>Shipping Cost</td>
+																<td>&#2547;@tax</td>
+															</tr>
+                                                            @{tprice += tax;}
+															<tr>
+																<td>Total</td>
+																<td>&#2547;@tprice</td>
+															</tr>
+														</tbody>
+													</table>
+													
+												</td>
+												
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr>
+												</td>
+											</tr>
+											<tr>
+											<td colspan="2" style="text-align:center;"><a><button type="button" class="btn btn-info" ><span class="glyphicon glyphicon-print"></span> Print</button></a></td>
+													
+												
+											</tr>
+											
+											
+											
+										</table>
+										
+										
+										
+									</tr>
+									
+								
+									
+								</tbody>
+							</table>
+						
+							
+						
+					</div>	
+					</br>
+					

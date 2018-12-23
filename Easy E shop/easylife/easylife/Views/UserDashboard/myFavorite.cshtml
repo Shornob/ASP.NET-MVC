@@ -1,0 +1,57 @@
+@model easylife.Models.UserDashboardViewModel.myFavoriteViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |My Favourite";
+}
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome")><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id=Model.MemberId }) ><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a  class="active"><i class="fa fa-dashboard"></i>My Favourite</a></li>
+						
+						</ol>
+					</div>
+					
+					
+					
+					
+					
+					<div class="container-fluid c">
+						
+						
+						<table class="table table-striped ">
+							
+							<tbody>
+								<tr>
+									<th>Product Image</th>
+									<th>Product Name</th>
+									<th>Product Price</th>
+									<th colspan="2">Date</th>
+									
+									
+									
+									
+									
+								</tr>
+                                @{var count=0;}
+								@foreach (var item in Model.Favorites)
+                                {
+								<tr>
+									<td><a href=@Url.Action("details","UserHome", new { id=item.ProductId})>@Html.Raw(String.Format("<img class=\"img-circle user\" src=\"/resources/{0}.jpg\">",item.ProductId))</a></td>
+									<td>@Model.Products[count].ProductName</td>
+									<td>&#2547;@Model.Products[count].SellingPrice</td>
+									<td>@item.Date</td>
+									<td><a href=@Url.Action("removeFavorite", new { id=item.UserFavoriteId,mid=Model.MemberId})><span class="glyphicon glyphicon-trash point" title="Remove"></span></a></td>
+									
+									@{count++;}
+								</tr>
+                                }
+								
+								
+								
+								
+							</tbody>
+						</table>
+						
+						
+						
+					</div>

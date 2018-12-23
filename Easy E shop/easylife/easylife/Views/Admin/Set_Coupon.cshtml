@@ -1,0 +1,96 @@
+﻿@model easylife.Models.AdminViewModel.SetCouponModel
+@{
+    ViewBag.Title = "Set Coupon";
+}
+
+		
+			
+			<div class="main-div">
+				
+
+@using (Html.BeginForm("Set_Coupon", "Admin",new { id = Model.coupon.MemberId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+				<div  style="width:50%;height:600px;background-color:white;">
+					<table>
+                            <tr  style="background-color:whitesmoke;" >
+                                   <td colspan="2">Add Coupon</td>  
+                                    
+                            </tr>
+                         <tr   >
+                                   <td colspan="2"><hr></td>  
+                                    
+                            </tr>
+
+
+                        <tr>
+                            <td>Memeber Id:</td><td><label>@Model.coupon.MemberId</label></td>
+
+
+
+
+                        </tr>
+                        <tr>
+                            <td>Percentage:</td>
+                            <td>@Html.EditorFor(model => model.coupon.Percentage, new { htmlAttributes = new { @class = "form-control" } })
+                               @Html.ValidationMessageFor(model => model.coupon.Percentage, "", new { @class = "text-danger" })
+                            %</td>
+
+                        </tr>
+                        <tr>
+                            <td>Issue Date:</td>
+                            <td>@DateTime.Now</td>
+
+                        </tr>
+                        <tr>
+
+                            <td>Expire Date:</td>
+                            <td>
+                             
+                                @Html.TextBoxFor(m => m.coupon.DeadlineDate, new { Value = Model.coupon.DeadlineDate.ToString("yyyy-mm-dd"), id = "MySuperCoolId" });
+                            </td>
+                            
+
+                        </tr>
+                       
+                           
+                        
+                            
+                        
+					</table>
+                    <hr>
+                    <table>
+                            <tr >
+                                   <td><button class="button">Add</button></td>
+                                 <td><a href="@Url.Action("View_Users",new {id=Model.coupon.MemberId })"><button class="button">Cancel</button></a></td>   
+                                    
+                            </tr>
+                            
+                        
+                        
+					</table>
+
+					
+						
+					</div>
+}
+					<!--<img src="resources/1.jpg" width="80%" height="300px" align="center"/> -->
+				</div>
+				
+		
+		<script>
+function confirmm() {
+    var txt;
+    if (confirm("Add cupon ?")) {
+        alert("Added Succesfully");
+		
+		
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innercshtml = txt;
+}		
+	
+</script>			
+	
+

@@ -1,0 +1,169 @@
+﻿@model easylife.Models.AdminViewModel.ReportViewModel
+@{
+    ViewBag.Title = "View_Reports";
+
+}
+
+<style>
+        cshtml,body,h1,h2,h3,h4,h5 {font-family: 'Times New Roman', Times, serif}
+            table {
+			        border-collapse: collapse;
+			        width: 100%;
+			      }
+		tr:hover {   background-color:gray;}
+
+         a:hover {color: hotpink;}
+        a:link {color: black;}
+
+    .bbb {
+        background-color: #F5A9A9;
+    }
+        .bbb:hover {
+            background-color: gray;
+        }
+
+      .comboBox {
+                  border-radius: 4px;
+                  background-color: #fffff;
+                  border: none;
+                  color: black;
+                  text-align: center;
+                  font-size:15px;
+                  width: 120px;
+                  height: 30px;
+                  border-radius:10px;
+                  transition: all 0.5s;
+                  cursor: pointer;
+                  margin: 5px;
+                }
+        h3 {
+               text-align:center;
+           }
+</style>
+
+	<div>
+    @using (Html.BeginForm("View_Members", "Admin", FormMethod.Post))
+            {
+        <select id="view" class="comboBox" @Html.DropDownList("SearchbyUser", new SelectList(new[] { "All", "Admin", "Stock Executive", "Order Executive" }))
+                        <select id="search by" class="comboBox" @Html.DropDownList("Searchby", new SelectList(new[] { "Any", "Name", "Email", "Type" }))
+
+                        <!--<select id="view" class="comboBox">
+                            <option>View All</option>
+                            <option>View Admins</option>
+                            <option>View Stock Executive</option>
+                            <option>View Order Executive</option>
+                          </select>-->
+
+
+
+                        <!--<select id="search by" class="comboBox">
+                            <option>Any</option>
+                            <option>Name</option>
+                            <option>Email</option>
+                            <option>Type</option>
+                          </select>-->
+
+
+                        @Html.TextBox("searching")
+                        <input class="button" type="submit" value="Search" />
+                        }
+    </div>
+
+<body class="w3-animate-bottom">
+	
+  <!--for demo wrap-->
+
+  <h1 style="color:	teal">Reports</h1>
+    <h3 style="color:	teal">Total Report(s) Found: @Model.TotalReportCount</h3>
+  <section class="w3-card-4">
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Report Id</th>
+          <th>ReportTitle</th>
+          <th>Reported By</th>
+		  <th>Reported Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" style="background-color:white" cellspacing="0" border="0">
+      <tbody>
+          @{var count = 0;}
+          @foreach (var item in Model.Reports)
+          {
+              
+               if (item.SeenStatus == "0")
+               {
+                   <tr class="bbb" onclick="location.href='@Url.Action("View_Report", new { rid=item.ReportId,name=Model.members[count].Name,f=0 })'">
+                    <td>@item.ReportId</td>
+                    <td>@item.ReportTitle</td>
+                    <td>@Model.members[count].Name</td>
+                    <td>@item.Date</td>
+                    <td>Unseen</td>
+                </tr>
+               }
+               
+               if (item.SeenStatus == "1")
+               {
+                   <tr onclick="location.href='@Url.Action("View_Report", new { rid=item.ReportId,name=Model.members[count].Name,f=0 })'">
+                    <td>@item.ReportId</td>
+                    <td>@item.ReportTitle</td>
+                    <td>@Model.members[count].Name</td>
+                    <td>@item.Date</td>
+                    <td>Seen</td>
+                </tr>
+               }
+             
+              count++;
+          }
+          
+                
+         
+        <!--<tr  onclick="location.href='@Url.Action("View_Profile_Admin")'">
+          <td>1</a></td>
+          <td>MD Mashiul Azam</td>
+          <td>efti@gmail.com</td>
+          <td>2 Day(s) Ago</td>
+		  <td>Admin</td>
+          <!-- <td><a href="View_Profile_Admin">View</a></td> -->
+		  <!-- <td><a href="Edit_Profile">Edit</a></td> -->
+		  <!-- <td><a href="Delete_Profile">Delete</a></td> -->
+        <!-- </tr>
+		<tr onclick="location.href='@Url.Action("View_Profile_Admin")'">
+          <td>2</a></td>
+          <td>Rajesh Saha</td>
+          <td>rajesh@gmail.com</td>
+          <td>3 Month(s) Ago</td>
+		  <td>Admin</td>
+        </tr>
+		<tr  onclick="location.href='@Url.Action("View_Profile_Admin")'">
+          <td>3</a></td>
+          <td>Rakibul Hossain</td>
+          <td>rakib@gmail.com</td>
+          <td>1 Year(s) Ago</td>
+		  <td>Order Executive </td>
+        </tr>
+		<tr onclick="location.href='@Url.Action("View_Profile_Admin")'">
+          <td>4</a></td>
+          <td>Reza Ul Karim</td>
+          <td>reza@gmail.com</td>
+          <td>1 Year(s) Ago</td>
+		  <td>Stock Executive </td>
+        </tr>-->
+        
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- <script> -->
+	<!-- $(window).on("load resize ", function() { -->
+  <!-- var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width(); -->
+  <!-- $('.tbl-header').css({'padding-right':scrollWidth}); -->
+<!-- }).resize(); -->
+<!-- </script> -->
+</body>

@@ -1,0 +1,120 @@
+﻿@model easylife.Models.AdminViewModel.ProductViewModel
+@{
+    ViewBag.Title = "View_Products";
+}
+<style>
+    cshtml,body,h1,h2,h3,h4,h5 {font-family: 'Times New Roman', Times, serif}
+        table  {
+			    border-collapse: collapse;
+			    width: 100%;
+			    }
+			    tr:hover {background-color:gray;}
+            
+    .comboBox {
+  
+                  border-radius: 4px;
+                  background-color: #fffff;
+                  border: none;
+                  color: black;
+                  text-align: center;
+                  font-size:15px;
+                  width: 120px;
+                  height: 30px;
+                  border-radius:10px;
+                  transition: all 0.5s;
+                  cursor: pointer;
+                  margin: 5px;
+                }
+        h3 {
+                text-align:center;
+            }
+	
+</style>
+
+	    <div >
+					
+            @using (Html.BeginForm("View_Products", "Admin", FormMethod.Post))
+            {
+                <select id="search by" class="comboBox" @Html.DropDownList("Searchby", new SelectList(new[] { "Any", "Product Name", "Brand" }))
+                        @Html.TextBox("searching")<input class="button" type="submit" value="Search" />
+             }
+	    </div>
+
+<body class="w3-animate-bottom">
+	
+  <!--for demo wrap-->
+
+      <h1 style="color:	blue">Products</h1>
+        <h3 style="color:	blue">Total Products(s) Found: @Model.TotalProduct</h3>
+      <section class="w3-card-4">
+      <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+            <tr>
+              <th>Product Image</th>
+              <th>Product Name[Code]</th>
+                <td>Brand</td>
+              <th>Total Sells</th>
+		      <th>Price</th>
+              <th>Last Purchase</th>
+		      <th>Remaining Quantity</th>
+		  
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+           
+               @foreach (var item in Model.Products)
+               {
+		        <tr>
+                  <td><a href='@Url.Action("View_Product_Details", new { id = item.ProductId })'>@Html.Raw(String.Format("<img class=\"img-circle user\" src=\"/resources/{0}.jpg\">", item.ProductId))</a></td>
+                  <td>@item.ProductName</td>
+                  <td>@item.Brand</td>
+                  <td>@item.TotalSell</td>
+                  <td>@item.SellingPrice</td>
+		          <td>@item.LastSold</td>
+		          <td>@item.Quantity</td>
+                    
+                </tr>
+            }
+
+		<!--<tr>
+           <td><a href='@Url.Action("View_Product_Details")'><img  src="~/resources/2.jpg" width="60px" height="60px"></a></td>
+          <td>Women Hoody[2]</td>
+          <td>0</td>
+          <td>300</td>
+		  <td>2017-12-28 16:19:53</td>
+		  <td>10</td>
+        </tr>
+		<tr>
+           <td><ahref='@Url.Action("View_Product_Details")'><img   src="~/resources/3.jpg" width="60px" height="60px"></a></td>
+          <td>Gavading pant[3]</td>
+          <td>0</td>
+          <td>300</td>
+		  <td>2017-12-28 16:19:53</td>
+		  <td>10</td>
+        </tr>
+		<tr>
+           <td><a href='@Url.Action("View_Product_Details")'><img   src="~/resources/1.jpg" width="60px" height="60px"></a></td>
+          <td>Moyur Ear Ringst[4]</td>
+          <td>0</td>
+          <td>300</td>
+		  <td>2017-12-28 16:19:53</td>
+		  <td>10</td>
+        </tr>
+          -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- <script> -->
+	<!-- $(window).on("load resize ", function() { -->
+  <!-- var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width(); -->
+  <!-- $('.tbl-header').css({'padding-right':scrollWidth}); -->
+<!-- }).resize(); -->
+<!-- </script> -->
+</body>

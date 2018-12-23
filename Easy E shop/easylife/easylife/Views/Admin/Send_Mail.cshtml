@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Send Mail";
+}
+
+		@using (Html.BeginForm("Send_Mail", "Admin", FormMethod.Post))
+        {
+
+			<div class="main-div">
+				
+				<div  style="width:80%;height:600px;background-color:white;">
+					<table style="width:100%">
+                            <tr style="background-color:dimgray;" >
+                                   <td>New Message</td>  
+                                    
+                            </tr>
+                            
+                        
+                            <tr  >
+                                   <td>To:<input name="email"/></td> 
+                                   
+                            </tr>
+                           
+                        
+                            <tr>
+                                   <td>Subject:<input name="subject"  value="Subject..." size="65"/></td> 
+                                      
+                            </tr>
+                            
+                            <tr>
+                                   <td><textarea name="body" rows="13" cols="75" placeholder="type your message here"></textarea></td>    
+                            </tr>
+                        
+					</table>
+                    <table>
+                            <tr >
+                                   <td><input type="submit" value="Send" class="btn btn-primary" style="margin-left:200px" /></td>
+                                 <td><a href="@Url.Action("View_Users")"><button class="button">Cancel</button></a></td>   
+                                    
+                            </tr>
+                            
+                        
+                        
+					</table>
+
+					
+						
+					</div>
+					<!--<img src="resources/1.jpg" width="80%" height="300px" align="center"/> -->
+				</div>
+        }
+
+
+		<script>
+function confirmm() {
+    var txt;
+    if (confirm("Send Message ?")) {
+        alert("Message Sent Succesfully");
+		window.open('@Url.Action("View_Users")','_self');
+		
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innercshtml = txt;
+}		
+	
+</script>			
+	
+

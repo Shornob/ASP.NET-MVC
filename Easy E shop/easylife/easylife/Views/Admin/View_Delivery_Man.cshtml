@@ -1,0 +1,166 @@
+﻿@model easylife.Models.DeliveryManViewModel
+@{
+    ViewBag.Title = "View_Delivery_Man";
+}
+
+<style>
+        cshtml,body,h1,h2,h3,h4,h5 {font-family: 'Times New Roman', Times, serif}
+        table {
+			        border-collapse: collapse;
+			        width: 100%;
+			  }
+	    tr:hover {background-color:gray;}
+
+       .comboBox {
+                      border-radius: 4px;
+                      background-color: #fffff;
+                      border: none;
+                      color: black;
+                      text-align: center;
+                      font-size:15px;
+                      width: 120px;
+                      height: 30px;
+                      border-radius:10px;
+                      transition: all 0.5s;
+                      cursor: pointer;
+                      margin: 5px;
+                  }
+         h3 {
+                text-align:center;
+            }
+</style>
+
+	<div style="padding-left:35px">
+        @using (Html.BeginForm("View_Delivery_Man", "Admin", FormMethod.Post))
+        {
+            <select id="search by" class="comboBox" @Html.DropDownList("Searchby", new SelectList(new[] { "Any", "Name", "Email", "Type" }))
+                    @Html.TextBox("searching")<input class="button" type="submit" value="Search" />
+        }
+		
+
+	</div>
+
+<body class="w3-animate-bottom ">
+	
+  <!--for demo wrap-->
+  
+  <h1>Delivery Man</h1>
+    <h3 >Total Delivery Man(s) Found: @Model.MemberCount</h3>
+  <section class="w3-card-4">
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Delivery Pending</th>
+          <th>Delivery Completed</th>
+		  <th>Delivery Zone</th>
+		  <th>Assigned By</th>
+		  <th>Availability</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+  
+    @foreach (var item in Model.DeliveryMan)
+    {
+        var Completed = 0;
+        var Pending = 0;
+        var name = "";
+
+            foreach (var I in Model.Invoices)
+            {
+                if (I.DeliveryManId == item.MemberId)
+                {
+                    if (I.Status == "Done")
+                    {
+                        Completed++;
+                    }
+                    else
+                    {
+                        Pending++;
+                    }
+                }
+            }
+            foreach (var S in Model.members)
+            {
+                if (item.AssignedBy == S.MemberId)
+                {
+                    name = S.Name;
+                }
+                if (S.MemberId == item.MemberId)
+                {
+                    <tr onclick="location.href='@Url.Action("View_Profile_Delivery_Man", new { id = item.MemberId })'">
+                        <td>@Html.DisplayFor(modelItem => S.MemberId)</td>
+                        <td>@Html.DisplayFor(modelItem => S.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => S.Email)</td>
+                        <td><p style="text-align:center">@Pending</p></td>
+                        <td>@Completed</td>
+                        <td>@Html.DisplayFor(modelItem => item.Zone)</td>
+                        <td>@name</td>
+                            @if (item.Availability == "1")
+                            {
+                                <td>Available </td>
+                            }
+                            else
+                            {
+                                <td>On Vacation</td>
+                            }
+                                
+                    </tr>
+                }
+        }
+    }
+
+          <!-- <td><a href="View_Profile_Delivery_Man.cshtml">View</a></td> -->
+          <!-- <td><a href="Edit_Profile.cshtml">Edit</a></td> -->
+          <!-- <td><a href="Delete_Profile.cshtml">Delete</a></td> -->
+		<!--<tr  onclick="location.href='@Url.Action("View_Profile_Delivery_Man")'">
+          <td>2</td>
+          <td>Rajesh Saha</td>
+          <td>rajesh@gmail.com</td>
+          <td>30</td>
+		  <td>Narayangonj</td>
+		  <td>Efti</td>
+		  <td>Available</td>
+        </tr>
+		<tr  onclick="location.href='@Url.Action("View_Profile_Delivery_Man")'">
+          <td>3</td>
+          <td>Rakibul Hossain</td>
+          <td>rakib@gmail.com</td>
+          <td>24</td>
+		  <td>Khilkhet</td>
+		  <td>-</td>
+		  <td>On vacation</td>
+        </tr>
+		<tr  onclick="location.href='@Url.Action("View_Profile_Delivery_Man")'">
+          <td>4</td>
+          <td>Reza Ul Karim</td>
+          <td>reza@gmail.com</td>
+          <td>6</td>
+		  <td>Khilgaon</td>
+		  <td>-</td>
+		  <td>On vacation</td>
+        </tr>
+        
+      </tbody>-->
+    </table>
+  </div>
+</section>
+
+<!-- <script> -->
+	<!-- $(window).on("load resize ", function() { -->
+  <!-- var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width(); -->
+  <!-- $('.tbl-header').css({'padding-right':scrollWidth}); -->
+<!-- }).resize(); -->
+<!-- </script> -->
+</body>
+
+</cshtml>
+
+

@@ -1,0 +1,179 @@
+﻿@model easylife.Models.AdminViewModel.InvoiceAdminViewModel
+@{
+    ViewBag.Title = "View_Invoice";
+}
+<div class="container-fluid ">
+
+
+    <table class="table table-striped ">
+
+        <tbody>
+            <tr>
+                <table width="800px;" style="margin-left:150px;">
+                    <tr>
+                        <td>
+                            <p style="text-align:left;"><b>Bill from:</b><p>
+                            <p style="text-align:left;">Easylife Online shopping<p>
+                            <p style="text-align:left;">Dhanmondi<p>
+                            <p style="text-align:left;">Dhanmondi, Dhaka-1215<p>
+                        </td>
+                        <td style="text-align:center;">
+                            <h1><font color="black" class="w3-xxxlarge" >Easylife</font></h1>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p style="text-align:left;"><b>Bill To:</b><p>
+                            <p style="text-align:left;">@Model.Name<p>
+                            <p style="text-align:left;"><b>Shipping Address:</b><p>
+                            <p style="text-align:left;">@Model.Invoice.ShippingAddress<p>
+                            <p style="text-align:left;"><b>Delivery Man:</b><p>
+                            <p style="text-align:left;color:green" onclick="location.href='@Url.Action("View_Profile_Delivery_Man", new { id = Model.DeliveryMan.MemberId })'">@Model.DeliveryMan.Name<p>
+                        </td>
+
+                        <td>
+                            <table class="table table-striped ">
+                                <tbody>
+                                    <tr>
+                                        <td>invoice</td>
+                                        <td>@Model.Invoice.InvoiceId</td>
+                                    </tr>
+                                    <tr>
+                                        <td>invoice Date</td>
+                                        <td>@Model.Invoice.Date</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Method</td>
+
+                                        @if (Model.Invoice.PaymentMethod == "0") {<td>bKash</td> }
+                                        @if (Model.Invoice.PaymentMethod == "1") {<td>Cash on Delivery</td> }
+                                    </tr>
+                                    <!--<tr>
+                                        <td>Amount Due</td>
+                                        <td>$450</td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <table class="table table-striped ">
+                                <tbody>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Cost</th>
+                                    </tr>
+                                    @{var count = 0;}
+                                    @{var tprice = 0.0;}
+                                    @foreach (var item in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td><a href='@Url.Action("View_Product_Details", new {id=item.ProductId})'>@Html.Raw(String.Format("<img class=\"img-circle user\" src=\"/resources/{0}.jpg\">", item.ProductId))</a></td>
+                                            <td>@Model.Products[count].ProductName</td>
+                                            <td>@item.Quantity</td>
+                                            <td>&#2547;@Model.Products[count].SellingPrice</td>
+
+                                        </tr>
+                                        tprice += Model.Products[count].SellingPrice;
+                                        count++;
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><b>Delivery Status</b></p>
+
+                            @if (Model.Invoice.Status == "0") {<p>On The Way</p> }
+                            @if (Model.Invoice.Status == "1") {<p>Deliverd</p> }
+                            @if (Model.Invoice.Status == "2") {<p>Canceled</p> }
+
+                            <br />
+
+                            <p><b>Payment Status</b></p>
+
+                            @if (Model.Invoice.PaymentStatus == "0") {<p>Unpaid</p> }
+                            @if (Model.Invoice.PaymentStatus == "1") {<p>Paid</p> }
+
+                            
+
+                        </td>
+                        <td>
+                            <table class="table table-striped ">
+                                <tbody>
+                                    <tr>
+                                        <td>Subtotal</td>
+                                        <td>&#2547;@tprice</td>
+                                    </tr>
+                                    @{var tax = 50;}
+                                    <tr>
+                                        <td>Shipping Cost</td>
+                                        <td>&#2547;@tax</td>
+                                    </tr>
+                                    @{tprice += tax;}
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>&#2547;@tprice</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    
+
+
+
+                </table>
+
+
+
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+
+
+</div>
+
+	
+

@@ -1,0 +1,121 @@
+@model easylife.Models.AdminViewModel.MemberView
+@{
+    ViewBag.Title = "Edit Profile Admin";
+}
+<meta name="viewport" content="width=device=width,initial-scalw=1,user-scalable=no">
+
+		
+<style>
+.w3-animate-bottom{overflow: scroll;
+    overflow-x: hidden;
+	position:relative;animation:animatebottom 0.4s}keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+	
+	::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent; 
+}
+</style>
+		
+<body class="w3-animate-bottom ">
+<div class="invoice" style="width:800px;background-color:lightskyblue">
+		
+			
+				
+@using (Html.BeginForm("Edit_Profile_Admin", "Admin",new { id = Convert.ToInt32(Session["userId"]) }, FormMethod.Post))
+{
+
+
+				<div class="invoice-wrapper">
+				
+				
+					<div class="invoice-wrap">
+					<div style="text-align:center;color:black;" class="ba"><h3>Edit Profile</h3></div>
+				
+						<div class="desc" style="margin-left:225;">
+						
+						
+							<table class="reg" >
+						
+							<tr>
+							
+								<th>Name:</th>
+								<td>
+                                    <input name="Name" value="@Model.member.Name" />
+                                    <!--Html.EditorFor(model => model.Name, new { htmlAttributes = new { class = "form-control" } })
+                                    Html.ValidationMessageFor(model => model.Name, "", new { class = "text-danger" })-->
+                                </td>
+							
+							</tr>
+							
+							<tr>
+							
+								<th>Gender:</th>
+								<td>
+                                    <input type="radio" name="Gender" value="@Model.member.Gender" /> Male
+                                    <input type="radio" name="Gender" value="@Model.member.Gender" /> Female
+                                     <input type="radio" name="Gender" value="@Model.member.Gender" /> Other
+                                    <!--Html.RadioButton("gender", "Male") Male
+                                    Html.RadioButton("gender", "Female") Female
+                                    Html.RadioButton("gender", "Other") Other
+                                    Html.ValidationMessageFor(model => model.member.Gender, "", new { class = "text-danger" })-->
+                                </td>
+							
+							</tr>
+							
+							<tr>
+							
+								<th>Cell No:</th>
+								<td>
+                                    <input name="CellPhone" value="@Model.member.PhoneNumber" />
+                                <!--Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { class = "form-control" } })
+                                Html.ValidationMessageFor(model => model.PhoneNumber, "", new { class = "text-danger" })-->
+                                </td>
+							
+							</tr>
+							<tr>
+							
+								<th>Position:</th>
+								<td>
+                                    <input type="radio" name="Type" value="@Model.member.Type" /> Admin
+                                    <input type="radio" name="Type" value="@Model.member.Type" /> Stock Executive
+                                    <input type="radio" name="Type" value="@Model.member.Type" /> Delivery Man
+
+                                    
+								</td>
+							</tr>
+							
+							<tr>
+							<td>
+                                <input type="submit" value="Update" class="btn btn-primary" />
+							</td>
+							<td>
+						<a href="@Url.Action("Dashboard","Admin")"><button class="button">Cancel</button></a>
+						</td>
+						
+							</tr>
+						
+						</table>
+					
+						</div>
+		
+				   </div>
+			
+			 </div>
+}
+    
+</div>
+		
+		<script>
+function confirmm() {
+    var txt;
+    if (confirm("Save Changes?")) {
+        alert("Succesful");
+		window.open('@Url.Action("View_Profile_Admin")','_self');
+		
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innercshtml = txt;
+}
+</script>
+</body>

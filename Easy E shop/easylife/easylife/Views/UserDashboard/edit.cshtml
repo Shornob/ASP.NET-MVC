@@ -1,0 +1,70 @@
+@model easylife.Models.UserDashboardViewModel.myEditViewModel
+@{
+    ViewBag.Title = "EasyLife | Dashboard |Edit Profile";
+}
+<div class="container-fluid ">
+						<ol class="breadcrumb">
+						<li><a href=@Url.Action("index","UserHome")><i class="fa fa-dashboard"></i> Home</a></li>
+						<li><a href=@Url.Action("dashboard", new { id=Model.MemberId}) ><i class="fa fa-dashboard"></i>Dashboard</a></li>
+						<li><a  class="active"><i class="fa fa-dashboard"></i>Edit Information</a></li>
+						
+						</ol>
+					</div>
+						
+						
+						
+					<div class="col-md-9 " style="height:700px; padding-left:200px;padding-right:200px;" >
+						
+						<div class="container-fluid">
+							
+							
+						@using (Html.BeginForm("edit", "UserDashboard",new{id=Model.MemberId}, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+    
+						
+						                    <div class="box-body">
+                                                    
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model=> model.member.Name)
+                                                        <div>
+                                                            <input name="Name" value="@Model.Name"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model=> model.member.Email)
+                                                        <div>
+                                                             <input name="Email" value="@Model.Email"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model=> model.member.Gender)
+                                                        <div>
+                                                           Male <input type="radio" name="Gender" value="@Model.Gender"/>
+                                                           Female <input type="radio" name="Gender" value="@Model.Gender"/>
+                                                           Other <input type="radio" name="Gender" value="@Model.Gender"/>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                     <div class="form-group">
+                                                        @Html.LabelFor(model => model.member.PhoneNumber)
+                                                        <div>
+                                                            <input name="PhoneNumber" value="@Model.PhoneNumber"/>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>@*
+					                             <a href=@Url.Action("manageAddress", new { id=Model.MemberId})><button type="button" class="btn btn-info" >Manage Address</button></a>*@
+						
+					                    
+					                    <div class="modal-footer">
+						                    <input type="submit" value="Update" class="btn btn-primary" />
+                                            
+					                    </div>
+				                 
+                       }
+							
+						
+					</div>	
+					
+				</div>
